@@ -1,0 +1,101 @@
+name: Build APK & Desktop
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Setup EAS CLI
+        run: npm install -g eas-cli expo-cli
+      
+      - name: Build APK
+        run: eas build --platform android --type apk --non-interactive
+        env:
+          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+      
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MyPhoneControl-APK
+          path: |
+            **/*.apk
+            android/app/build/outputs/apk/**/*.apk
+  
+  build-desktop:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build Desktop App
+        run: npm run build:electron
+      
+      - name: Upload Desktop Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: MyPhoneControl-Desktop-${{ matrix.os }}
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.AppImage
+
+  create-release:
+    needs: [build-apk, build-desktop]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+      
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: MyPhoneControl v${{ github.run_number }}
+          body: |
+            ## MyPhoneControl Release
+            
+            ### Features:
+            - ✅ 50 Telefon Kontrolü
+            - ✅ WiFi Yönetimi
+            - ✅ Günlük Kullanım Takibi
+            - ✅ Raporlama Sistemi
+            - ✅ Android + iOS Desteği
+            
+            ### Downloads:
+            - APK: MyPhoneControl-APK
+            - Windows: MyPhoneControl-Desktop-windows-latest
+            - macOS: MyPhoneControl-Desktop-macos-latest
+            - Linux: MyPhoneControl-Desktop-ubuntu-latest
