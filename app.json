@@ -41,12 +41,12 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [],
+    "runtimeVersion": "1.0.0",
     "extra": {
       "eas": {
-        "projectId": "myphonecontrol-project"
+        "projectId": "ff559521-7e6f-4a3c-a0b9-e128cbf96969"
       }
     },
-    "owner": "eldarovski",
-    "runtimeVersion": "1.0.0"
+    "owner": "samir7f"
   }
 }
