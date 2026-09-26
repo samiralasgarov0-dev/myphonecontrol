@@ -8,30 +8,27 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:apk": "eas build --platform android --type apk",
-    "build:aab": "eas build --platform android --type app-bundle",
+    "build:apk": "eas build --platform android --profile preview",
+    "build:aab": "eas build --platform android --profile production",
     "build:ios": "eas build --platform ios",
-    "build:all": "eas build --platform all",
-    "submit": "eas submit --platform android",
-    "eject": "expo eject"
+    "build:all": "eas build --platform all"
   },
   "dependencies": {
-    "expo": "^51.0.0",
-    "expo-device": "^6.0.2",
-    "expo-application": "^5.9.1",
-    "expo-av": "^14.0.5",
-   "expo-screen-capture": "~6.0.1",
+    "expo": "~51.0.28",
+    "expo-device": "~6.0.2",
+    "expo-application": "~5.9.1",
+    "expo-av": "~14.0.7",
+    "expo-screen-capture": "~6.0.1",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.73.6",
-        "react-native-gesture-handler": "~2.16.1"
+    "react-native": "0.74.5",
+    "react-native-gesture-handler": "~2.16.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "eas-cli": "^8.0.0"
+    "@babel/core": "^7.24.0"
   },
   "private": true,
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }
