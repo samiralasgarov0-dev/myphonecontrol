@@ -40,14 +40,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-screen-capture",
-        {
-          "enableCapturePreventionAndroid": false
-        }
-      ]
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "myphonecontrol-project"
