@@ -92,7 +92,7 @@ const MyPhoneControl = () => {
     const durationInSeconds = (Date.now() - usageStartTime.current) / 1000;
 
     try {
-      await fetch('http://YOUR_SERVER:3001/api/usage/log', {
+      await fetch('http://140.238.64.218:3001/api/usage/log', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -122,7 +122,7 @@ const MyPhoneControl = () => {
 
   const connectToServer = (phoneId) => {
     try {
-      const SERVER_URL = 'ws://YOUR_SERVER:3001'; // DEĞİŞTİRİN!
+      const SERVER_URL = 'ws://140.238.64.218:3001';
 
       console.log(`🔌 ${SERVER_URL} adresine bağlanılıyor...`);
 
